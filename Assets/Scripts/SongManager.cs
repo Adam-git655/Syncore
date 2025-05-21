@@ -24,7 +24,6 @@ public class SongManager : MonoBehaviour
     public float BeatSpawnXRight;
     public float BeatSpawnXLeft;
     public float BeatTapX;
-
     public float BeatDespawnXRight
     {
         get
@@ -46,6 +45,11 @@ public class SongManager : MonoBehaviour
     public bool HasStartedPlaying = false;
     public bool IsGameOver = false;
     private bool CanStartStuff = true;
+
+
+    private float songLength = 0f;
+    private float songElapsed = 0f;
+    private bool songStarted = false;
 
     private void Start()
     {
@@ -73,6 +77,16 @@ public class SongManager : MonoBehaviour
 
     private void Update()
     {
+        if (songStarted && !IsGameOver)
+        {
+            songElapsed += Time.deltaTime;
+            if (songElapsed >= songLength)
+            {
+                SceneManager.LoadScene("GameWonScene");
+            }
+        }
+
+
         if (HasStartedPlaying && CanStartStuff)
         {
             instance = this;
@@ -133,15 +147,10 @@ public class SongManager : MonoBehaviour
 
     public void StartSong()
     {
+        songLength = music.clip.length;
+        songElapsed = 0f;
+        songStarted = true;
         music.Play();
-    }
-
-    private void LateUpdate()
-    {
-        if (!music.isPlaying && HasStartedPlaying && !IsGameOver)
-        {
-            SceneManager.LoadScene("GameWonScene");
-        }
     }
 
     public static double GetAudioSourceTime()
