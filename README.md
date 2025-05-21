@@ -9,4 +9,4 @@ Right arrow key for beats coming from the right.
 Left arrow key for beats coming from the left
 
 Itch.io link for playing the game:-
-https://randomguy123hehe.itch.io/syncore (WebGl build doesnt work properly)
+https://randomguy123hehe.itch.io/syncore
